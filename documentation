@@ -1,0 +1,2 @@
+This program is a small clone of banking system. The program let you create user, add and check your balance,
+transfer money from one card to another, show users and delete account. The data is kept in database. The GUI is a console interface.

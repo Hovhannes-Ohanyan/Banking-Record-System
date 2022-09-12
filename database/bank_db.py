@@ -16,7 +16,7 @@ cursor.execute('''
 def create_user(name, surname, card_number, money):
     """This function is creates user"""
 
-    connection = sqlite3.connect('database/bank_recording.db')
+    connection = sqlite3.connect('/database/bank_recording.db')
     cursor = connection.cursor()
     with connection:
         cursor.execute("INSERT INTO bank_users VALUES (:name, :surname, :card_number, :money)",
@@ -120,7 +120,7 @@ def transfer_balance(card_number_from, card_number_to, money):
 
 def show_all_users():
     """This function is returns all users"""
-    con = sqlite3.connect('bank_recording.db')
+    con = sqlite3.connect('database/bank_recording.db')
     cursor = con.cursor()
     with con:
         cursor.execute("SELECT * FROM bank_users")
@@ -133,7 +133,7 @@ def show_all_users():
 
 def show_users_sort_by_balance():
     """This function is returns all users,but sorted by balance"""
-    con = sqlite3.connect('bank_recording.db')
+    con = sqlite3.connect('database/bank_recording.db')
     cursor = con.cursor()
     with con:
         cursor.execute("SELECT * FROM bank_users ORDER BY money")
@@ -147,7 +147,7 @@ def show_users_sort_by_balance():
 def delete_user(card_number):
     """This function delete user"""
 
-    connection = sqlite3.connect('bank_recording.db')
+    connection = sqlite3.connect('database/bank_recording.db')
     cur = connection.cursor()
     with connection:
         cur.execute("DELETE from bank_users WHERE card_number = :card_number",

@@ -1,6 +1,8 @@
 """This file is head file"""
 import sys
-from database.bank_db import *
+from database.bank_db import create_user, get_money_from_card_number, update_balance, \
+    transfer_balance, show_all_users, delete_user, get_card_number_from_name_surname, \
+    get_surname_from_name, show_users_sort_by_balance, get_all_users_card_number
 
 
 def input_name():
@@ -10,6 +12,7 @@ def input_name():
         return name
     print("Write valid name")
     input_name()
+    return None
 
 
 def input_surname():
@@ -19,15 +22,22 @@ def input_surname():
         return surname
     print("Write valid surname")
     input_surname()
+    return None
 
 
 def input_card_number():
     """This function is for input card number"""
     card_number = input("Write your card number : ")
     if card_number.isdigit() and len(card_number) == 12:
-        return card_number
-    print("Write valid card number")
-    input_card_number()
+        lst_cards = get_all_users_card_number()
+        if card_number not in lst_cards:
+            return card_number
+        print("The card already existed")
+        input_card_number()
+    else:
+        print("Write valid card number")
+        input_card_number()
+    return None
 
 
 def registration():
@@ -36,6 +46,7 @@ def registration():
     surname = input_surname()
     card_number = input_card_number()
     create_user(name, surname, card_number, 0)
+    print("Successfully created")
 
 
 def check_balance():
@@ -77,8 +88,8 @@ def show_users():
     if len(data) == 0:
         print("There is no users")
         return
-    for el in data:
-        print(el[0], el[1], el[2], f'{el[3]}' + ".00amd", end="\n")
+    for element in data:
+        print(element[0], element[1], element[2], f'{element[3]}' + ".00amd", end="\n")
 
 
 def show_users_by_balance():
@@ -87,8 +98,8 @@ def show_users_by_balance():
     if len(data) == 0:
         print("There is no users")
         return
-    for el in data:
-        print(el[0], el[1], el[2], f'{el[3]}' + ".00amd", end="\n")
+    for element in data:
+        print(element[0], element[1], element[2], f'{element[3]}' + ".00amd", end="\n")
 
 
 def delete_account():
@@ -96,8 +107,8 @@ def delete_account():
     name = input_name()
     lst_name = []
     users = show_all_users()
-    for el in users:
-        lst_name.append(el[0])
+    for element in users:
+        lst_name.append(element[0])
 
     if lst_name.count(name) == 1:
         delete_user(get_card_number_from_name_surname(name))
@@ -106,8 +117,8 @@ def delete_account():
 
         lst_surname = get_surname_from_name(name)
         print("Select your surname")
-        for el in lst_surname:
-            print(el)
+        for element in lst_surname:
+            print(element)
         surname = input_surname()
         if surname in lst_surname:
             card_num = get_card_number_from_name_surname(name, surname)
@@ -117,24 +128,24 @@ def delete_account():
             print(f"{surname} {name} user don't exict")
 
 
-print(
-    "Options: Registration | Check Balance | Add Balance | Transfer Money | Show Users | Show Users By Balance | Delete Account | Exit")
-
 while True:
+    print(
+        "Options: Registration | Check balance | Add balance | Transfer money | "
+        "Show users | Show users by balance | Delete account | Exit")
     option = input("> ")
     if option == "Registration":
         registration()
-    elif option == "Check Balance":
+    elif option == "Check balance":
         check_balance()
-    elif option == "Add Balance":
+    elif option == "Add balance":
         add_balance()
-    elif option == "Transfer Money":
+    elif option == "Transfer money":
         transfer_money()
-    elif option == "Show Users":
+    elif option == "Show users":
         show_users()
-    elif option == "Show Users By Balance":
+    elif option == "Show users by balance":
         show_users_by_balance()
-    elif option == "Delete Account":
+    elif option == "Delete account":
         delete_account()
     elif option == "Exit":
         sys.exit()

@@ -32,8 +32,9 @@ def input_card_number():
         lst_cards = get_all_users_card_number()
         if card_number not in lst_cards:
             return card_number
-        print("The card already existed")
-        input_card_number()
+        elif card_number in lst_cards:
+            print("Already exist!")
+            input_card_number()
     else:
         print("Write valid card number")
         input_card_number()
@@ -51,24 +52,30 @@ def registration():
 
 def check_balance():
     """This function is for seeing users balance"""
-    card_number = input_card_number()
-    mon = get_money_from_card_number(card_number)
-    if mon == -1:
-        print("Card not found")
+    card_number = input('Enter card number: ')
+    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+        mon = get_money_from_card_number(card_number)
+        if mon == -1:
+            print("Card not found")
+        else:
+            print(f"Your balance is : {get_money_from_card_number(card_number)}")
     else:
-        print(f"Your balance is : {get_money_from_card_number(card_number)}")
-
+        print("valid card number")
 
 def add_balance():
     """This function is for add balance"""
-    card_number = input_card_number()
-    money = input("How much you want add : ")
-    if money.isdigit():
-        if int(money) > 0:
-            update_balance(card_number, money)
-            print("Balance added")
+    card_number = input('Enter card number: ')
+    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+        money = input("How much you want add : ")
+        if money.isdigit():
+            if int(money) > 0:
+                update_balance(card_number, money)
+                print("Balance added")
+        else:
+            print("write valid money and enter the Add Balance option again")
     else:
-        print("write valid money and enter the Add Balance option again")
+        print("valid card number")
+        add_balance()
 
 
 def transfer_money():

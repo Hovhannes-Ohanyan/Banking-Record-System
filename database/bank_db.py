@@ -137,7 +137,7 @@ def show_users_sort_by_balance():
     con = sqlite3.connect('../database/bank_recording.db')
     cur = con.cursor()
     with con:
-        cur.execute("SELECT * FROM bank_users ORDER BY money")
+        cur.execute("SELECT * FROM bank_users  ORDER BY money")
         users = cur.fetchall()
         lst = []
         for user in users:

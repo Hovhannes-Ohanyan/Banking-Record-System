@@ -53,7 +53,8 @@ def registration():
 def check_balance():
     """This function is for seeing users balance"""
     card_number = input('Enter card number: ')
-    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+    if card_number.isdigit() and len(card_number) == 12 \
+            and card_number in get_all_users_card_number():
         mon = get_money_from_card_number(card_number)
         if mon == -1:
             print("Card not found")
@@ -65,7 +66,8 @@ def check_balance():
 def add_balance():
     """This function is for add balance"""
     card_number = input('Enter card number: ')
-    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+    if card_number.isdigit() and len(card_number) == 12 \
+            and card_number in get_all_users_card_number():
         money = input("How much you want add : ")
         if money.isdigit():
             if int(money) > 0:

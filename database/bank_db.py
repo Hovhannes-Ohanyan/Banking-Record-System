@@ -73,7 +73,6 @@ def get_card_number_from_name_surname(name, surname=None):
                 return element[2]
             elif element[0] == name and element[1] == surname:
                 return element[2]
-    return None
 
 
 def get_all_users_card_number():

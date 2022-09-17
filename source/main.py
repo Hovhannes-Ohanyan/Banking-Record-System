@@ -8,26 +8,30 @@ from database.bank_db import create_user, get_money_from_card_number, update_bal
 def input_name():
     """This function is for input name"""
     name = input("Write your name : ")
+    if name == 'Cancel':
+        main()
     if name.isalpha() and len(name) > 2:
         return name
     print("Write valid name")
     input_name()
-    return None
 
 
 def input_surname():
     """This function is for input surname"""
     surname = input("Write your surname : ")
+    if surname == 'Cancel':
+        main()
     if surname.isalpha() and len(surname) > 5:
         return surname
     print("Write valid surname")
     input_surname()
-    return None
 
 
 def input_card_number():
     """This function is for input card number"""
     card_number = input("Write your card number : ")
+    if card_number == 'Cancel':
+        main()
     if card_number.isdigit() and len(card_number) == 12:
         lst_cards = get_all_users_card_number()
         if card_number not in lst_cards:
@@ -38,7 +42,6 @@ def input_card_number():
     else:
         print("Write valid card number")
         input_card_number()
-    return None
 
 
 def registration():
@@ -53,7 +56,10 @@ def registration():
 def check_balance():
     """This function is for seeing users balance"""
     card_number = input('Enter card number: ')
-    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+    if card_number == 'Cancel':
+        main()
+    if card_number.isdigit() and len(card_number) == 12 \
+            and card_number in get_all_users_card_number():
         mon = get_money_from_card_number(card_number)
         if mon == -1:
             print("Card not found")
@@ -62,10 +68,14 @@ def check_balance():
     else:
         print("valid card number")
 
+
 def add_balance():
     """This function is for add balance"""
     card_number = input('Enter card number: ')
-    if card_number.isdigit() and len(card_number) == 12 and card_number in get_all_users_card_number():
+    if card_number == 'Cancel':
+        main()
+    if card_number.isdigit() and len(card_number) == 12 \
+            and card_number in get_all_users_card_number():
         money = input("How much you want add : ")
         if money.isdigit():
             if int(money) > 0:
@@ -81,7 +91,11 @@ def add_balance():
 def transfer_money():
     """This function is for transfer money"""
     card_number_from = input("Write card number where do you want to trasfer from  : ")
+    if card_number_from == 'Cancel':
+        main()
     card_number_to = input("Write card number where do you want forward : ")
+    if card_number_to == 'Cancel':
+        main()
     money = input("How much you want add : ")
     if money.isdigit() and int(money) > 0:
         transfer_balance(card_number_from, card_number_to, money)
@@ -134,27 +148,28 @@ def delete_account():
         else:
             print(f"{surname} {name} user don't exict")
 
-
-while True:
-    print(
-        "Options: Registration | Check balance | Add balance | Transfer money | "
-        "Show users | Show users by balance | Delete account | Exit")
-    option = input("> ")
-    if option == "Registration":
-        registration()
-    elif option == "Check balance":
-        check_balance()
-    elif option == "Add balance":
-        add_balance()
-    elif option == "Transfer money":
-        transfer_money()
-    elif option == "Show users":
-        show_users()
-    elif option == "Show users by balance":
-        show_users_by_balance()
-    elif option == "Delete account":
-        delete_account()
-    elif option == "Exit":
-        sys.exit()
-    else:
-        print("Is not an option")
+def main():
+    while True:
+        print(
+            "Options: Registration | Check balance | Add balance | Transfer money | "
+            "Show users | Show users by balance | Delete account | Exit")
+        option = input("> ")
+        if option == "Registration":
+            registration()
+        elif option == "Check balance":
+            check_balance()
+        elif option == "Add balance":
+            add_balance()
+        elif option == "Transfer money":
+            transfer_money()
+        elif option == "Show users":
+            show_users()
+        elif option == "Show users by balance":
+            show_users_by_balance()
+        elif option == "Delete account":
+            delete_account()
+        elif option == "Exit":
+            sys.exit()
+        else:
+            print("Is not an option")
+main()

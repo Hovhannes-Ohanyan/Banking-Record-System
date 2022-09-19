@@ -66,7 +66,7 @@ def check_balance():
         else:
             print(f"Your balance is : {get_money_from_card_number(card_number)}")
     else:
-        print(" Write valid card number and enter Check balance option again")
+        print("Write valid card number and enter Check balance option again")
 
 
 def add_balance():

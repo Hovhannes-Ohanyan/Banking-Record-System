@@ -9,11 +9,11 @@ def input_name():
     """This function is for input name"""
     name = input("Write your name : ")
     if name == 'Cancel':
-        main()
+        return main()
     if name.isalpha() and len(name) > 2:
         return name
     print("Write valid name")
-    input_name()
+    return input_name()
 
 
 def input_surname():
@@ -24,7 +24,7 @@ def input_surname():
     if surname.isalpha() and len(surname) > 5:
         return surname
     print("Write valid surname")
-    input_surname()
+    return input_surname()
 
 
 def input_card_number():
@@ -38,10 +38,10 @@ def input_card_number():
             return card_number
         elif card_number in lst_cards:
             print("Already exist!")
-            input_card_number()
+            return input_card_number()
     else:
         print("Write valid card number")
-        input_card_number()
+        return input_card_number()
 
 
 def registration():
@@ -57,7 +57,7 @@ def check_balance():
     """This function is for seeing users balance"""
     card_number = input('Enter card number: ')
     if card_number == 'Cancel':
-        main()
+        return main()
     if card_number.isdigit() and len(card_number) == 12 \
             and card_number in get_all_users_card_number():
         mon = get_money_from_card_number(card_number)
@@ -73,7 +73,7 @@ def add_balance():
     """This function is for add balance"""
     card_number = input('Enter card number: ')
     if card_number == 'Cancel':
-        main()
+        return main()
     if card_number.isdigit() and len(card_number) == 12 \
             and card_number in get_all_users_card_number():
         money = input("How much you want add : ")
@@ -85,17 +85,17 @@ def add_balance():
             print("write valid money and enter the Add Balance option again")
     else:
         print("valid card number")
-        add_balance()
+        return add_balance()
 
 
 def transfer_money():
     """This function is for transfer money"""
     card_number_from = input("Write card number where do you want to trasfer from  : ")
     if card_number_from == 'Cancel':
-        main()
+        return main()
     card_number_to = input("Write card number where do you want forward : ")
     if card_number_to == 'Cancel':
-        main()
+        return main()
     money = input("How much you want add : ")
     if money.isdigit() and int(money) > 0:
         transfer_balance(card_number_from, card_number_to, money)

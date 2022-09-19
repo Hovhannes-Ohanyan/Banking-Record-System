@@ -66,7 +66,7 @@ def check_balance():
         else:
             print(f"Your balance is : {get_money_from_card_number(card_number)}")
     else:
-        print("valid card number")
+        print(" Write valid card number and enter Check balance option again")
 
 
 def add_balance():
@@ -130,7 +130,9 @@ def delete_account():
     users = show_all_users()
     for element in users:
         lst_name.append(element[0])
-
+    if name not in lst_name:
+        print(" User not found")
+        return delete_account()
     if lst_name.count(name) == 1:
         delete_user(get_card_number_from_name_surname(name))
         print("Account deleted")

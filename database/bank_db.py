@@ -89,6 +89,7 @@ def get_all_users_card_number():
         return lst
 
 
+
 def update_balance(card_number, money):
     """ This function is updates money from card number"""
     if card_number in get_all_users_card_number():
